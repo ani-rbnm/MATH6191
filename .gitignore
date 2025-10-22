@@ -47,3 +47,14 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Anirban - renv related files
+renv/
+renv.lock
+.Rprofile
+
+# Rendered files
+*.html
+*.htm
+*.pdf
+lab_w4_files/

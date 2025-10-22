@@ -1,0 +1,94 @@
+---
+title: "lab4"
+author: "Anirban"
+date: "2025-10-22"
+format: html
+---
+
+## Question 1
+
+### a) define function calc_geo_series
+- Implemented without a loop 
+- Three params:
+  - a: starting term
+  - r: the amount multiplied
+  - n: power of r in the last term being 'n-1'
+
+
+```{r}
+calc_geo_series <- function (a, r, n) {
+  output <- a * (r ^ (0:(n - 1)))
+  sum(output)
+}
+
+```
+### b) Verify with a = 0.5, r = 2, n = 5. Answer should be 15.5
+
+```{r}
+calc_geo_series(0.5, 2, 5)
+```
+## Question 2
+
+### Calculate P(X <= 7) where X ~ Geom(0.75)
+
+```{r}
+
+# trunc decimal beyond a given size
+truncDec <- function(input, size) {
+  return(trunc(input * 10^size)/10^size)
+}
+
+ifelse(truncDec(calc_geo_series(0.75, 0.25, 7),6) == truncDec(pgeom(6, 0.75),6),
+  "Value calculated correctly", "Incorrect calculation! Check again")
+```
+The values returned by the 2 functions are:
+
+```{r}
+calc_geo_series(0.75, 0.25, 7)
+pgeom(6, 0.75)
+```
+
+## Question 3
+
+### a) Calculating L_q
+
+```{r}
+calc_norm <- function(x, q) {
+  output <- ((x ^ q) %*% rep(1, length(x))) ^ (1/q)
+  return(as.numeric(output))
+}
+calc_norm(c(3,4), 2)
+```
+### b) applying the above function to calculate the L_q norm of a matrix
+
+```{r}
+calc_row_norms <- function(X, q) {
+  apply(X, 1, calc_norm, q)
+}
+```
+### c) Testing with a matrix
+
+```{r}
+X = matrix(c(1, 2, 2, 4, 3, 6), nrow = 2)
+calc_row_norms(X, q = 2)
+```
+
+## Question 4
+
+### a) Harmonic mean function:
+  - No loops
+  - Assumption: all positive values
+
+
+```{r}
+harmonic_mean <- function(input) {
+  length(input)/sum(1/input)
+} 
+```
+
+### b) Test
+
+```{r}
+input <- c(5.8, 7.2, 3.6, 1.1, 6.2)
+harmonic_mean(input)
+```
