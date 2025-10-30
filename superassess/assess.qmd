@@ -1,0 +1,22 @@
+---
+title: assessment analysis
+author: Anirban M
+date: 2025/10/28
+format: html
+---
+
+* loading data
+
+```{r}
+tvl.df <- read.csv("travel_modes.csv", header = T)
+head(tvl.df)
+tvl.df$maxtvl<- ave(tvl.df$travel, tvl.df$individual, FUN=max)
+# maxtvl <- tapply(tvl.df$travel, tvl.df$individual, max)
+# maxtvl <- maxtvl[match(tvl.df$individual, names(maxtvl))]
+# tvl.df$maxtvl <- as.data.frame( maxtvl )
+tvl.df$maxtvl<- ifelse(tvl.df$travel == tvl.df$maxtvl, 1, 0)
+val <- sum(tvl.df$travel*tvl.df$maxtvl)/sum(tvl.df$maxtvl)
+head(tvl.df, n=20)
+val
+```
+
